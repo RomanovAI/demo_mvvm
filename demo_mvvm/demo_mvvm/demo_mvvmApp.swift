@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct Demo_mvvmApp: App {
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TabBarView(viewModel: TabViewModel())
         }
     }
+    
 }
