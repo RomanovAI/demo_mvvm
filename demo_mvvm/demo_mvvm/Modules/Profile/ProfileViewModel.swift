@@ -35,7 +35,7 @@ protocol ProfileViewModelProtocol: ObservableObject {
 
 final class ProfileViewModel: ProfileViewModelProtocol {
     
-    private let profileService: ProfileServiceProtocol = ProfileService()
+    var profileService: ProfileServiceProtocol = ProfileService()
     
     // MARK: - Public properties
     
@@ -74,12 +74,14 @@ final class ProfileViewModel: ProfileViewModelProtocol {
         Task.detached { [weak self] in
             guard let self = self else { return }
             do {
-                let profileModel = await profileService.getProfileInfo()
+                let profileModel = try await profileService.getProfileInfo()
                 Task { @MainActor in
                     self.fillModel(with: profileModel)
                     self.loadingState = .loaded
                     self.status = .authorized
                 }
+            } catch {
+                print("error")
             }
         }
     }

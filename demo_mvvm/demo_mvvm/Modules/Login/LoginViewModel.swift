@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol LoginViewModelProtocol: ObservableObject {
+protocol LoginViewModelProtocol: AnyObject, ObservableObject {
     
     var login: String { get set }
     var password: String { get set }
@@ -35,9 +35,7 @@ final class LoginViewModel: LoginViewModelProtocol {
         !login.isEmpty && !password.isEmpty
     }
     
-    // MARK: - Private properties
-    
-    private var credentialsAreValid: Bool {
+    var credentialsAreValid: Bool {
         errorText.isEmpty
     }
     
